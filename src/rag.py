@@ -3,7 +3,7 @@ import time
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
-from store import search
+from store import search, search_in_memory
 
 load_dotenv()
 client = genai.Client(
@@ -47,8 +47,14 @@ def generate(prompt: str) -> str:
                     break
     raise last_error
 
-def answer(question: str, k: int = 6):
-    results = search(question, k)
+def answer(question: str, k: int = 6, index: dict | None = None):
+    """index=None searches the built-in library; otherwise the given in-memory index."""
+    if index is not None:
+        results = search_in_memory(question, index, k)
+    else:
+        results = search(question, k)
+    if not results:
+        return "There are no documents to search yet. Upload a PDF to get started.", []
     context = "\n\n".join(
         f"[{meta['source']} p.{meta['page']}]\n{text}"
         for text, meta, dist in results

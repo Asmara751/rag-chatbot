@@ -4,6 +4,7 @@ Ask questions about your PDFs and get answers that cite the exact pages they cam
 
 ![Answer with citations](docs/screenshot-answer.png)
 ![Refusal when the answer is not in the documents](docs/screenshot-refusal.png)
+![Uploading a PDF and asking about it](docs/screenshot-upload.png)
 
 ## What it does
 
@@ -13,6 +14,7 @@ Ask questions about your PDFs and get answers that cite the exact pages they cam
 - Shows only the pages the answer actually cites.
 - Refuses to answer when the documents do not contain the answer.
 - Offers two interfaces over the same core: a chat page (Streamlit) and a REST API (FastAPI).
+- Lets users upload their own PDFs and ask questions about them (kept in memory for the session only).
 
 ## How it works
 
@@ -128,6 +130,9 @@ LLM providers fail under load, and this one did during development. `rag.py` use
 - Citations are read from the model's answer text, so if the model changes its citation format the sources line can be empty.
 - Pure vector search can miss rare keywords (see the "vSphere" example above).
 - Tested on two documents only.
+- Uploads are limited to 10 MB per file and 200 pages in total, and the text used to answer is sent to the Gemini API, so confidential documents should not be uploaded.
+- Files in other languages (for example Urdu) are not supported: the embedding model is English-focused and some PDF text extraction scrambles right-to-left scripts.
+- Citations use the PDF viewer's page number, which can differ from the number printed on the page when a document has a cover or front matter.
 
 ## Next steps
 

@@ -6,8 +6,19 @@ from google.genai import types
 from store import search, search_in_memory
 
 load_dotenv()
+
+def _get_key():
+    key = os.getenv("GEMINI_API_KEY")
+    if key:
+        return key
+    try:
+        import streamlit as st
+        return st.secrets["GEMINI_API_KEY"]
+    except Exception:
+        return None
+
 client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY"),
+    api_key=_get_key(),
     http_options=types.HttpOptions(timeout=30000),   # give up after 30 seconds
 )
 

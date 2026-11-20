@@ -86,7 +86,11 @@ if index is not None:
 elif has_library:
     st.info("Searching the built-in documents. Upload PDFs in the sidebar to ask about your own.")
 else:
-    st.info("Upload a PDF in the sidebar to get started.")
+    st.info(
+        "Upload an English PDF with selectable text in the sidebar to get started "
+        "(a lecture, article or report, up to 10 MB). This demo shares a free AI quota, "
+        "so it may be busy at times."
+    )
 
 # ---------- chat ----------
 if "history" not in st.session_state:

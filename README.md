@@ -1,5 +1,5 @@
 # Document Q&A: a RAG chatbot with page citations
-
+**Live demo:** https://asmara-rag-chatbot.streamlit.app (upload an English PDF and ask questions about it)
 Ask questions about your PDFs and get answers that cite the exact pages they came from. If the answer is not in the documents, the bot says so instead of guessing.
 
 ![Answer with citations](docs/screenshot-answer.png)
@@ -133,6 +133,7 @@ LLM providers fail under load, and this one did during development. `rag.py` use
 - Uploads are limited to 10 MB per file and 200 pages in total, and the text used to answer is sent to the Gemini API, so confidential documents should not be uploaded.
 - Files in other languages (for example Urdu) are not supported: the embedding model is English-focused and some PDF text extraction scrambles right-to-left scripts.
 - Citations use the PDF viewer's page number, which can differ from the number printed on the page when a document has a cover or front matter.
+- The live demo runs on a free host and a shared free AI quota, so it can sleep after inactivity and may be busy at times.
 
 ## Next steps
 
